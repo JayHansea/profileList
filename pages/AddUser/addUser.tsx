@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import { Navbar } from "~/components/Navbar";
+import toast, { Toaster } from "react-hot-toast";
 
 type UserFormData = {
   name: string;
@@ -84,21 +85,56 @@ const AddUser = () => {
     setIsSubmitting(true);
 
     if (validateForm()) {
-      // Here, you can implement the logic for adding the user to the backend or state
-      // For now, we'll just log the form data
-      console.log(formData);
-      // After successful submission, you can redirect the user or reset the form
-      // router.push('/users'); // Redirect to another page after success
-    } else {
-      setIsSubmitting(false);
+      try {
+        const storedData = localStorage.getItem("userProfiles");
+        const existingUsers = storedData ? JSON.parse(storedData) : [];
+
+        const newUser = {
+          id: Date.now(),
+          ...formData,
+          profilePhotoUrl: URL.createObjectURL(formData.profilePhotoUrl!),
+        };
+
+        const updatedUsers = [...existingUsers, newUser];
+
+        localStorage.setItem("userProfiles", JSON.stringify(updatedUsers));
+
+        toast.success("User added successfully!", {
+          style: {
+            backgroundColor: "#cef7ea",
+            color: "#306844",
+          },
+          duration: 3000,
+        });
+        setFormData({
+          name: "",
+          email: "",
+          role: "",
+          isActive: true,
+          profilePhotoUrl: null,
+        });
+      } catch (error) {
+        console.error(error);
+        toast.error("Error adding user.", {
+          style: {
+            backgroundColor: "#FFCBDD",
+            color: "#f00",
+          },
+          duration: 3000,
+        });
+      }
     }
+    setIsSubmitting(false);
   };
 
   return (
     <>
       <Navbar />
-      <div className="max-w-lg mx-auto p-8 m-8 bg-white shadow-lg rounded-lg text-gray-500">
+      <div className="max-w-lg md:mx-auto p-8 my-8 mx-4 bg-white shadow-lg rounded-lg text-gray-500">
         <h2 className="text-2xl font-bold mb-6 text-center">Add New User</h2>
+        <h2 className="mt-5 text-center text-base leading-9 tracking-tight text-white">
+          <Toaster />
+        </h2>
         <form onSubmit={handleSubmit}>
           <div className="mb-8">
             <label
