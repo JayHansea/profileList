@@ -45,10 +45,10 @@ You should see the user management dashboard running.
 
 Here’s a breakdown of the main files and directories:
 
-`pages/`: Contains the main pages of the app, including Home, Add User, and Manage Users.
-`components/`: Contains reusable components like table and navbar.
-`constants/`: Contains the static data file, used to store the initial data.
-`app`: For displaying the pages using the next file based routing system.
+- `pages/`: Contains the main pages of the app, including Home, Add User, and Manage Users.
+- `components/`: Contains reusable components like table and navbar.
+- `constants/`: Contains the static data file, used to store the initial data.
+- `app`: For displaying the pages using the next file based routing system.
 
 ## Tech Stack
 

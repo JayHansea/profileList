@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Navbar } from "~/components/Navbar";
 import { Table } from "~/components/Table";
 import initialData from "~/constants/data";
+import toast, { Toaster } from "react-hot-toast";
 
 type User = {
   id: number;
@@ -33,6 +34,20 @@ function ManageUser() {
     );
     setData(updatedData);
     localStorage.setItem("userProfiles", JSON.stringify(updatedData));
+
+    const updatedUser = updatedData.find((user) => user.id === id);
+    if (updatedUser) {
+      const message = updatedUser.isActive
+        ? "User activated successfully"
+        : "User deactivated successfully";
+      toast.success(message, {
+        style: {
+          backgroundColor: "#cef7ea",
+          color: "#306844",
+        },
+        duration: 3000,
+      });
+    }
   };
 
   const handleToggleFilter = () => {
@@ -47,6 +62,7 @@ function ManageUser() {
     <>
       <Navbar />
       <div className="p-8">
+        <Toaster />
         <Table
           data={filteredData}
           onStatusToggle={handleStatusToggle}

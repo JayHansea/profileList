@@ -67,7 +67,7 @@ export const Navbar = () => {
                   pathname === "/manage-user" ? "bg-blue-800" : ""
                 } text-white hover:bg-blue-700 p-2 rounded block lg:inline`}
               >
-                Manage User
+                Manage Users
               </Link>
             </li>
           </ul>
