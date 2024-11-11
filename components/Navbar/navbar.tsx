@@ -11,7 +11,7 @@ export const Navbar = () => {
     <nav className="bg-blue-600 p-4">
       <div className="container mx-auto flex flex-wrap items-center justify-between">
         <Link href="/" className="text-white text-xl font-bold">
-          UserList
+          AlumUnite
         </Link>
 
         <button
